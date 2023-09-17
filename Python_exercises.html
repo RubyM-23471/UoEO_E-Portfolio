@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>SQL Exercises</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="generic.html">Ipsum veroeros</a></li>
+							<li><a href="generic.html">Tempus etiam</a></li>
+							<li><a href="generic.html">Consequat dolor</a></li>
+							<li><a href="elements.html">Elements</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Python Exercises</h1>
+							<p>Python is something I have been wanting to learn more about for many years so getting the chance to dive deeper into it has been very exciting.</br>
+            Below are a few exercises and questions I answered using Python during my time on the course</p>
+              <h3>Question 1</h3>
+									<blockquote><b>Data sort using cards</b>: Suppose you are sorting a set of cards. The right hand holds several cards which are sequentially sorted by numbers arranged from right to left, say for example, five cards with 10, 6, 5, 3, 2 arranged from right to left. Your left hand is picking up the top card from a pile of card deck. Now you insert the card that you have picked from the pile of deck into the right position within the right-hand cards, in a sorted order from right to left.</br>
+
+Write the instructions in a step by step manner. Note down even a minor step that you have taken to insert the left-hand card into a correct position within the set of right-hand cards so that the right-hand card set remains sorted from right to left.</blockquote>
+<p>For this problem, I knew I would need to compare each new card to the numbers in the list. For example,if I pulled a 7  would first comapre it to the leftmost card to see if it was smaller. If it was, I would move on to the next card and see if it was larger or smaller. If it was larger, I would place the new card before it. If it was smaller, I would move on to the next card and repeat the process.</p>
+									
+<h3>Answering the problem with Python</h3>
+									<pre><code>
+
+import random
+
+my_list=[10,6,5,3,2]
+num=random.randint(0,10)
+print(num)
+
+for i in range(len(my_list)):
+    if num < my_list[i]:
+        if num >= my_list[i+1]:
+            my_list.insert(i+1,num) 
+            print(my_list)   
+
+OUTPUT:  
+codio@beforenurse-demoritual:~/workspace$ python3 testing
+4
+[10, 6, 5, 4, 3, 2]
+codio@beforenurse-demoritual:~/workspace$ python3 testing
+10
+codio@beforenurse-demoritual:~/workspace$ python3 testing
+7
+[10, 7, 6, 5, 3, 2]
+codio@beforenurse-demoritual:~/workspace$ python3 testing
+3
+[10, 6, 5, 3, 3, 2]
+codio@beforenurse-demoritual:~/workspace$ 
+    
+</code></pre>
+<p> The above code and output was the answer I came to. I had some issues, such as numbers that were already present in the list not being inserted into the list, or the numbers being inserted each time in the loop. With some tweaking, I eventually arrived at the above code which worked successfully!</p>
+<p>My first attempt at the code can be seen below as well the outputs. As you can see, the results were not ideal! After this attempt, I realised I needed another step so the random number could be compared with 2 values next to each other in the list. I also needed the code to not skip over random numbers that were already in the list. So, I added a second If statement and changed the operator in the boolean statement from a simple <b><</b> to <b><=</b>.</p>
+              <pre><code>
+import random
+
+my_list=[10,6,5,3,2]
+num=random.randint(1,10)
+print(num)
+for i in range(len(my_list)):
+    if num > my_list[i]:
+            my_list.insert(i,num) 
+print(my_list)
+
+OUTPUT:
+10
+[10, 10, 10, 10, 10, 6, 5, 3, 2]
+codio@beforenurse-demoritual:~/workspace$ python3 testing
+2
+[10, 6, 5, 3, 2]
+codio@beforenurse-demoritual:~/workspace$ python3 testing
+1
+[10, 6, 5, 3, 2]
+codio@beforenurse-demoritual:~/workspace$ python3 testing
+4
+[10, 6, 5, 4, 4, 3, 2]
+codio@beforenurse-demoritual:~/workspace$ 
+
+    
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+              
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Get in touch</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+							<section>
+								<h2>Follow</h2>
+								<ul class="icons">
+									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
