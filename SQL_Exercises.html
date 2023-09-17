@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Generic - Phantom by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="generic.html">Ipsum veroeros</a></li>
+							<li><a href="generic.html">Tempus etiam</a></li>
+							<li><a href="generic.html">Consequat dolor</a></li>
+							<li><a href="elements.html">Elements</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>SQL Exercises</h1>
+							<p>to fill later</p>
+              <h3>Question 1</h3>
+									<blockquote>(Project, RESTRICT) List all drivers (number and name) who have a salary of less than 1800.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT bdno,bdname,bdsalary FROM BusDriver WHERE bdsalary >=1800;
++------+-------------+----------+
+| bdno | bdname      | bdsalary |
++------+-------------+----------+
+| 001  | Jane Brown  |  1800.00 |
+| 008  | Maggie May  |  2200.00 |
+| 010  | Peter Piper |  3500.00 |
+| 011  | John Peel   |  2000.00 |
++------+-------------+----------+
+</code></pre>
+
+<h3>Question 2</h3>
+									<blockquote>(Conditional operator LIKE) List all bus drivers (number and name) whose name begins with J.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT bdname,bdno FROM BusDriver 
+    -> WHERE bdname LIKE 'J%';
++------------+------+
+| bdname     | bdno |
++------------+------+
+| Jane Brown | 001  |
+| James Bond | 007  |
+| Jack Jones | 009  |
+| John Peel  | 011  |
++------------+------+
+</code></pre>
+
+<h3>Question 3</h3>
+									<blockquote>(Conditional operator BETWEEN) List all bus drivers details for those drivers who have a salary between 2000 and 4000.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT bdname,bdno,bdsalary FROM BusDriver WHERE bdsalary >=2000 AND bdsalary <=4000;
++-------------+------+----------+
+| bdname      | bdno | bdsalary |
++-------------+------+----------+
+| Maggie May  | 008  |  2200.00 |
+| Peter Piper | 010  |  3500.00 |
+| John Peel   | 011  |  2000.00 |
++-------------+------+----------+
+3 rows in set (0.00 sec)
+</code></pre>
+
+<h3>Question 4</h3>
+									<blockquote>(AND) List all buses (registration number and model) of type 2 which are not based at depot 101.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT * FROM Bus;
++---------+-----------------+------+------+------+
+| regno   | model           | tno  | dno  | cno  |
++---------+-----------------+------+------+------+
+| A123ABC | Routemaster     | 1    | 101  | 110  |
+| D345GGG | Volvo 8500      | 1    | 101  | 112  |
+| D678FGH | Volvo 8700      | 2    | 101  | 110  |
+| H259IJK | Daf SB220       | 3    | 102  | 114  |
+| P200IJK | Mercedes 709D   | 2    | 102  | 113  |
+| P300RTY | Mercedes Citaro | 4    | 102  | 113  |
+| R678FDS | Daf SB220       | 1    | NULL | 110  |
++---------+-----------------+------+------+------+
+7 rows in set (0.00 sec)
+
+
+mysql> SELECT regno,model FROM Bus  WHERE tno = 2 AND dno <> 101; 
++---------+---------------+
+| regno   | model         |
++---------+---------------+
+| P200IJK | Mercedes 709D |
++---------+---------------+
+1 row in set (0.00 sec)
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Get in touch</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<input type="text" name="name" id="name" placeholder="Name" />
+										</div>
+										<div class="field half">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="field">
+											<textarea name="message" id="message" placeholder="Message"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Send" class="primary" /></li>
+									</ul>
+								</form>
+							</section>
+							<section>
+								<h2>Follow</h2>
+								<ul class="icons">
+									<li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
+									<li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
