@@ -51,7 +51,7 @@
 					<div id="main">
 						<div class="inner">
 							<h1>SQL Exercises</h1>
-							<p>to fill later</p>
+							<p>Below you can find several SQL exercises I completed as part of my practice. Overall, I have enjoyed SQL and find it to be a very intuitive language. Whilst it does not have many capabilities in terms of data analysis, it is a powerful tool for nuanced data aggregation and retrieval. I am looking forward to using this skill more in the future!</p>
               <h3>Question 1</h3>
 									<blockquote>(Project, RESTRICT) List all drivers (number and name) who have a salary of less than 1800.</blockquote>
 									
@@ -132,6 +132,348 @@ mysql> SELECT regno,model FROM Bus  WHERE tno = 2 AND dno <> 101;
 | P200IJK | Mercedes 709D |
 +---------+---------------+
 1 row in set (0.00 sec)
+</code></pre>
+
+<h3>Question 5</h3>
+									<blockquote>(OR) List buses (all details )which are either Volvo model s or Mercedes models. What is the output when you change OR to AND?</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT * FROM Bus WHERE model LIKE 'Mercedes%' AND model LIKE 'Volvo%';
+Empty set (0.01 sec)
+
+mysql> SELECT * FROM Bus WHERE model LIKE 'Mercedes%' OR  model LIKE 'Volvo%';
++---------+-----------------+------+------+------+
+| regno   | model           | tno  | dno  | cno  |
++---------+-----------------+------+------+------+
+| D345GGG | Volvo 8500      | 1    | 101  | 112  |
+| D678FGH | Volvo 8700      | 2    | 101  | 110  |
+| P200IJK | Mercedes 709D   | 2    | 102  | 113  |
+| P300RTY | Mercedes Citaro | 4    | 102  | 113  |
++---------+-----------------+------+------+------+
+4 rows in set (0.00 sec)
+</code></pre>
+
+
+<h3>Question 6</h3>
+									<blockquote>(Controlling duplicates using DISTINCT) List all depot numbers in the bus table. Now eliminate all duplicates.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT * FROM Depot;
++-----+-----------+--------------+
+| dno | dname     | daddress     |
++-----+-----------+--------------+
+| 101 | Holloway  | Camden Road  |
+| 102 | Hornsey   | High Road    |
+| 104 | Islington | Upper Street |
++-----+-----------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT dno FROM Bus;
++------+
+| dno  |
++------+
+| NULL |
+| 101  |
+| 101  |
+| 101  |
+| 102  |
+| 102  |
+| 102  |
++------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT dno FROM Bus;
++------+
+| dno  |
++------+
+| NULL |
+| 101  |
+| 102  |
++------+
+3 rows in set (0.00 sec)
+</code></pre>
+
+
+<h3>Question 7</h3>
+									<blockquote>(Two table Join – INNER JOIN) List all cleaners (number and name) with the name and address of their depot, but only for those cleaners located at a depot.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT Cleaner.cname,Depot.dname,Depot.dno,Depot.daddress FROM Cleaner INNER JOIN Depot ON Cleaner.dno = Depot.dno;
++-------+----------+-----+-------------+
+| cname | dname    | dno | daddress    |
++-------+----------+-----+-------------+
+| John  | Holloway | 101 | Camden Road |
+| Jean  | Holloway | 101 | Camden Road |
+| Betty | Hornsey  | 102 | High Road   |
+| Vince | Hornsey  | 102 | High Road   |
+| Jay   | Hornsey  | 102 | High Road   |
+| Doug  | Hornsey  | 102 | High Road   |
++-------+----------+-----+-------------+
+6 rows in set (0.00 sec)
+</code></pre>
+
+<h3>Question 8</h3>
+									<blockquote>(Two table Join – INNER JOIN) List all cleaners (number and name) with the name and address of their depot, but only for those cleaners located at a depot.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+mysql> SELECT Training.bdno,BusDriver.bdname,Training.tno,Bus.model
+    -> From Training
+    -> JOIN BusDriver
+    -> ON Training.bdno = BusDriver.bdno
+    -> JOIN Bus
+    -> ON Training.tno = Bus.tno;
++------+-------------+-----+-----------------+
+| bdno | bdname      | tno | model           |
++------+-------------+-----+-----------------+
+| 001  | Jane Brown  | 1   | Routemaster     |
+| 001  | Jane Brown  | 1   | Volvo 8500      |
+| 001  | Jane Brown  | 1   | Daf SB220       |
+| 001  | Jane Brown  | 2   | Volvo 8700      |
+| 001  | Jane Brown  | 2   | Mercedes 709D   |
+| 006  | Sally Smith | 2   | Volvo 8700      |
+| 006  | Sally Smith | 2   | Mercedes 709D   |
+| 007  | James Bond  | 1   | Routemaster     |
+| 007  | James Bond  | 1   | Volvo 8500      |
+| 007  | James Bond  | 1   | Daf SB220       |
+| 007  | James Bond  | 2   | Volvo 8700      |
+| 007  | James Bond  | 2   | Mercedes 709D   |
+| 007  | James Bond  | 3   | Daf SB220       |
+| 008  | Maggie May  | 2   | Volvo 8700      |
+| 008  | Maggie May  | 2   | Mercedes 709D   |
+| 008  | Maggie May  | 3   | Daf SB220       |
+| 008  | Maggie May  | 4   | Mercedes Citaro |
+| 009  | Jack Jones  | 3   | Daf SB220       |
+| 009  | Jack Jones  | 4   | Mercedes Citaro |
+| 011  | John Peel   | 1   | Routemaster     |
+| 011  | John Peel   | 1   | Volvo 8500      |
+| 011  | John Peel   | 1   | Daf SB220       |
+| 011  | John Peel   | 2   | Volvo 8700      |
+| 011  | John Peel   | 2   | Mercedes 709D   |
+| 011  | John Peel   | 3   | Daf SB220       |
+| 011  | John Peel   | 4   | Mercedes Citaro |
++------+-------------+-----+-----------------+
+26 rows in set (0.00 sec)
+</code></pre>
+
+<h3>Question 9</h3>
+									<blockquote>(Four table JOIN) List all cleaners (number and name), the name of their depot and the bus registration numbers with the type of bus that they are responsible for.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+mysql> SELECT Cleaner.cname,Cleaner.cno,Cleaner.dno,Bus.tno,tdescript FROM Cleaner JOIN Depot ON Cleaner.dno = Depot.dno JOIN Bus ON Depot.dno = Bus.dno JOIN BusType ON Bus.tno = BusType.tno;
++-------+-----+------+------+---------------+
+| cname | cno | dno  | tno  | tdescript     |
++-------+-----+------+------+---------------+
+| John  | 110 | 101  | 1    | double-decker |
+| John  | 110 | 101  | 1    | double-decker |
+| Jean  | 111 | 101  | 1    | double-decker |
+| Jean  | 111 | 101  | 1    | double-decker |
+| John  | 110 | 101  | 2    | metrobus      |
+| Jean  | 111 | 101  | 2    | metrobus      |
+| Betty | 112 | 102  | 2    | metrobus      |
+| Vince | 113 | 102  | 2    | metrobus      |
+| Jay   | 114 | 102  | 2    | metrobus      |
+| Doug  | 115 | 102  | 2    | metrobus      |
+| Betty | 112 | 102  | 3    | midibus       |
+| Vince | 113 | 102  | 3    | midibus       |
+| Jay   | 114 | 102  | 3    | midibus       |
+| Doug  | 115 | 102  | 3    | midibus       |
+| Betty | 112 | 102  | 4    | bendy bus     |
+| Vince | 113 | 102  | 4    | bendy bus     |
+| Jay   | 114 | 102  | 4    | bendy bus     |
+| Doug  | 115 | 102  | 4    | bendy bus     |
++-------+-----+------+------+---------------+
+18 rows in set (0.00 sec)
+</code></pre>
+
+<h3>Question 10</h3>
+									<blockquote>(Built-in functions) Find the maximum, minimum and average driver’s salary.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+mysql> SELECT MIN(bdsalary) FROM BusDriver;
++---------------+
+| MIN(bdsalary) |
++---------------+
+|       1400.00 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(bdsalary) FROM BusDriver;
++---------------+
+| MAX(bdsalary) |
++---------------+
+|       3500.00 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT AVG(bdsalary) FROM BusDriver;
++---------------+
+| AVG(bdsalary) |
++---------------+
+|   2021.428571 |
++---------------+
+1 row in set (0.00 sec)
+</code></pre>
+
+<h3>Question 11</h3>
+									<blockquote>(Use a subquery to answer this question) Find route information (route number and description) for all routes which connect to the Holloway Depot.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT * FROM Route;
++-----+----------------------+------+
+| rno | rdescript            | dno  |
++-----+----------------------+------+
+| 10  | Tottenham/Angel      | 102  |
+| 11  | Islington/Highgate   | 102  |
+| 6   | Camden/Golders Green | 101  |
+| 7   | Finchley/Tottenham   | 101  |
+| 8   | Hendon/Muswell Hill  | 101  |
++-----+----------------------+------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Depot;
++-----+-----------+--------------+
+| dno | dname     | daddress     |
++-----+-----------+--------------+
+| 101 | Holloway  | Camden Road  |
+| 102 | Hornsey   | High Road    |
+| 104 | Islington | Upper Street |
++-----+-----------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT rno,rdescript FROM Route WHERE dno=(SELECT dno FROM Depot WHERE dname="Holloway");
++-----+----------------------+
+| rno | rdescript            |
++-----+----------------------+
+| 6   | Camden/Golders Green |
+| 7   | Finchley/Tottenham   |
+| 8   | Hendon/Muswell Hill  |
++-----+----------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT rno,rdescript FROM Route WHERE dno=(SELECT dno FROM Depot WHERE dname="Holloway");
+</code></pre>
+
+<h3>Question 12</h3>
+									<blockquote>(NULL) List bus details for any bus which has not been assigned to a depot.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT regno,model FROM Bus WHERE dno IS NULL;
++---------+-----------+
+| regno   | model     |
++---------+-----------+
+| R678FDS | Daf SB220 |
++---------+-----------+
+1 row in set (0.00 sec)
+</code></pre>
+
+<h3>Question 13</h3>
+									<blockquote>(NOT IN) List all drivers (name and number) who are on the system but are not yet responsible for a route.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT bdno,bdname,BusDriver.dno FROM BusDriver WHERE dno NOT IN (SELECT Route.dno FROM Route) OR dno IS NULL;
++------+-------------+------+
+| bdno | bdname      | dno  |
++------+-------------+------+
+| 006  | Sally Smith | NULL |
+| 010  | Peter Piper | 104  |
++------+-------------+------+
+2 rows in set (0.00 sec)
+</code></pre>
+
+<h3>Question 14</h3>
+									<blockquote>(GROUP BY) List each depot name and the average salary for drivers working at the depot.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT Depot.dname,Depot.dno, AVG(bdsalary) AS avg_salary FROM Depot JOIN BusDriver ON Depot.dno = BusDriver.dno GROUP BY Depot.dno;
++-----------+-----+-------------+
+| dname     | dno | avg_salary  |
++-----------+-----+-------------+
+| Holloway  | 101 | 1600.000000 |
+| Hornsey   | 102 | 1900.000000 |
+| Islington | 104 | 3500.000000 |
++-----------+-----+-------------+
+3 rows in set (0.00 sec)
+</code></pre>
+
+<h3>Question 15</h3>
+									<blockquote>(GROUP BY HAVING) List each depot by name and count the number of bus drivers who are assigned to each, for depots with more than one driver.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT dname, COUNT(BusDriver.dno) AS count FROM Depot JOIN BusDriver ON Depot.dno = BusDriver.dno GROUP BY Depot.dno HAVING count > 1;
++----------+-------+
+| dname    | count |
++----------+-------+
+| Holloway |     2 |
+| Hornsey  |     3 |
++----------+-------+
+2 rows in set (0.00 sec)
+</code></pre>
+
+<h3>Question 16</h3>
+									<blockquote>(ORDER BY)
+a. List all drivers (name and number) and their routes (number and description, order by driver number.
+b. Now order by route description within driver number.</blockquote>
+									
+<h3>Answer</h3>
+									<pre><code>
+
+mysql> SELECT bdno,bdname,BusDriver.dno,rdescript FROM BusDriver JOIN Route ON BusDriver.dno = Route.dno ORDER BY bdno;
++------+------------+------+----------------------+
+| bdno | bdname     | dno  | rdescript            |
++------+------------+------+----------------------+
+| 001  | Jane Brown | 101  | Finchley/Tottenham   |
+| 001  | Jane Brown | 101  | Camden/Golders Green |
+| 001  | Jane Brown | 101  | Hendon/Muswell Hill  |
+| 007  | James Bond | 102  | Islington/Highgate   |
+| 007  | James Bond | 102  | Tottenham/Angel      |
+| 008  | Maggie May | 102  | Islington/Highgate   |
+| 008  | Maggie May | 102  | Tottenham/Angel      |
+| 009  | Jack Jones | 101  | Finchley/Tottenham   |
+| 009  | Jack Jones | 101  | Camden/Golders Green |
+| 009  | Jack Jones | 101  | Hendon/Muswell Hill  |
+| 011  | John Peel  | 102  | Islington/Highgate   |
+| 011  | John Peel  | 102  | Tottenham/Angel      |
++------+------------+------+----------------------+
+12 rows in set (0.00 sec)
+--------------------------------------------------
+
+mysql> SELECT bdno,bdname,BusDriver.dno,rdescript FROM BusDriver JOIN Route ON BusDriver.dno = Route.dno ORDER BY bdno,rdescript;
++------+------------+------+----------------------+
+| bdno | bdname     | dno  | rdescript            |
++------+------------+------+----------------------+
+| 001  | Jane Brown | 101  | Camden/Golders Green |
+| 001  | Jane Brown | 101  | Finchley/Tottenham   |
+| 001  | Jane Brown | 101  | Hendon/Muswell Hill  |
+| 007  | James Bond | 102  | Islington/Highgate   |
+| 007  | James Bond | 102  | Tottenham/Angel      |
+| 008  | Maggie May | 102  | Islington/Highgate   |
+| 008  | Maggie May | 102  | Tottenham/Angel      |
+| 009  | Jack Jones | 101  | Camden/Golders Green |
+| 009  | Jack Jones | 101  | Finchley/Tottenham   |
+| 009  | Jack Jones | 101  | Hendon/Muswell Hill  |
+| 011  | John Peel  | 102  | Islington/Highgate   |
+| 011  | John Peel  | 102  | Tottenham/Angel      |
++------+------------+------+----------------------+
+12 rows in set (0.00 sec)
 </code></pre>
 
 
