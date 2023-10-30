@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Data Report: Transport for Wales</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="generic.html">Ipsum veroeros</a></li>
+							<li><a href="generic.html">Tempus etiam</a></li>
+							<li><a href="generic.html">Consequat dolor</a></li>
+							<li><a href="elements.html">Elements</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>Data Report: Transport for Wales</h1>
+							<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
+							<p> A major component of The Data Professional course was to plan and execute a data analysis plan using data from the Welsh Annusl Survey regarding transport in Wales.</br> 
+						The following information includes my reports, code samples and findings from that assignment.</p>
+						<p><u>Data Analysis Report: Findings</u></br>
+
+ Transport in Wales is quite extensive and includes a variety of “trunk roads” (Traffic Wales, 2022), bus (Traws Cyrmu, 2023) and rail networks (Transport for Wales, 2023). Wales has a spread of rural and urban areas and the public travel network, such as trains and bus routes, largely follows these trends with the majority of services covering the more populated urban areas (Statistics for Wales, 2008). It is important to note that Wales is also home to a lot of areas of natural beauty to which some transport links will act as gateways, so some rural areas might enjoy better resources because of this (Transport for Wales, 2023). </br>
+
+ The data we are analysing comes from results from the Welsh annual National Survey. This survey is made up of a sample of 14,800 Welsh residents answering questions on their demographic and various aspects of life in Wales (Welsh Government, 2013). This includes rating their current satisfaction with the transport system, although this was only asked of approximately a third of the participants. A few other questions, such as those regarding local healthcare and feelings of safety, were only asked to participants who had recent experience with these topics to protect data integrity. </br>
+
+
+For our analysis of this data, we are going to focus on demographics with below-average satisfaction (below 5.9) to build their likeliest profile. We will also look at what trends there may be between demographics and satisfaction. Our goal is to identify possible areas for improvement or investment that Wales could undertake in the future. We will also note that we elected not to conduct analysis into the lower and upper confidence interval values due to time and logistical constraints. </br>
+
+
+<u>Data Preparation</u></br>
+
+
+We will be using Python to read, clean and analyse this data. The Excel file that contains the data we are using includes some cosmetic formatting and extra information such as keys and merged cells with titles. We have deleted these in the file prior to accessing it in our Python environment where we will perform some more intricate cleaning. </br>
+
+ First, we have read all the tables in the file and named them using a short naming convention, i.e. “Table_1, Table_2”. This will simplify being able to call the tables when needed. When looking at the tables in the Python environment, we saw that there were several unnamed, blank columns so we then used the pandas.drop function to delete those unnecessary columns. To do this, I defined a basic function to delete columns named “Column1” and “Column2”, and then wrote a loop that would identify tables with a “Column1” and then implement the user-defined function. As part of our analysis, we are going to aggregate the 14 satisfaction tables together. To facilitate this, we renamed the column that lists the different demographics as “Group” in every table. This will mean that we can easily concatenate the tables with that column as the focus point. 
+We also split the 42 tables between 2 lists - one for the first 14 tables focused on satisfaction, and another for the remaining tables. This way, we can easily iterate over the lists in order to quickly and efficiently evaluate the tables. </br>
+ 
+<u>Data Analysis</u></br>
+
+Once we cleaned and prepared the data, we then started anlaysing. First, we needed to identify the demographics that recorded the below average satisfaction ratings. To do this, we aggregated the first 14 tables by using pandas.concat and calling my list of the tables to save time. We already renamed the column as “Group” in each table to facilitate this. Once the tables were aggregated, we used pandas.query and created a new table of all the demographics with less than a 5.9 mean satisfaction rating. This table then became our list of demographics to investigate further, so we created a Python list (using pandas.tolist()) of those that we can iterate over when needed. This list now comprises the demographics most likely to have a negative opinion or experience with Transport in Wales. </br>
+
+  Next, we defined a function that will sift through our remaining tables and pick out ones that are relevant to our search. This returned quite a large list of tables so, instead of going through all of them, we decided to go back to our list of satisfaction ratings and choose some key demographics that we can build a picture of. First, we used a pandas.nsmallest query to find the top 10 lowest mean values and the corresponding group. However, this list was largely comprised of local authorities, for which we do not have any further data. This would also give us quite a narrow window of analysis so, instead, we decided to focus on some more fundamental personal traits, such as gender, age and health, as our starting points. From here, we then built a picture of why certain groups (such as women or people ages 45-64) tended to report a lower-than-average satisfaction rating. We also used some metadata to evaluate any findings. </br>
+
+<u>Participants who answered “Female” </u></br>
+ 
+ Our first step was to find out which tables included information on participants that answered “Female”. This returned 2 results: “Have use of a car by gender” and “Feelings of safety when on public transport at night by gender”. We decided to analyse these 2 tables by creating visualisations of the data we so can spot the differences easily. </br>
+
+ As can be seen from the charts below, access to a car for females is slightly lower than that of males, with a difference of 5.4 percentage points, or 6%. Whilst this is interesting and will likely have an effect on satisfaction, it is somewhat in conflict with other data seen in the dataset. If we then look at the mean satisfaction by car access, we can see that those with access to a car report lower than average satisfaction ratings on average, so it would be difficult to assert that this – along with the small difference in percentage points - contributes significantly. </br>
+
+ On the other hand, when we look at the second set of charts, we can see a significant difference in the feelings of safety between male and female participants with a difference of 19 percentage points for feeling “Very safe” and 20 percentage points for the two “safe” responses combined. Here, we can see that a significant proportion of women don’t feel as safe as men on public transport at night, a fact which could contribute strongly to negative satisfaction ratings. Whilst the differences in access to a car by gender might not be conclusive in isolation, that fact becomes a lot more relevant when seen that female participants do not feel safe on public transport. One issue with this data is that, according to the survey owners, the results for “Feelings of safety” are not as reliable as others (hence why we have only focused on the values for feeling ”Very safe” and “Fairly safe”). We can also assume that, due to the fewer women having access to cars, more women will have experience with public transport so there is still some reliability there. </br>
+<u>Participants who answered 45-64</u></br>
+ The next characteristic that we are looking at is age, particularly older participants, as this was the only age bracket that had a mean satisfaction rating below the overall mean of 5.9. Age appeared in a significant number of tables so this was an area of great interest. </br>
+ In the majority of cases, there is not a significant difference in most results apart from answers from older participants. If we look at figures 5 to 9, we can see a significant jump around the age of 65. This pattern can be seen in almost all of the tables we analysed, as can be seen in figures x to y. As with the data on female participants, the data on “Feelings of safety on public transport at night” is not as reliable but it is interesting that it still follows a similar pattern to the other tables. We can see that experiences tend to become more negative with age, however we can also see that the mean satisfaction dips to the lowest level at the age of 45-64 before increasing from age 65 onwards, in contradiction with our other tables. This could be attributed to the stark difference in sample sizes for some of this data. For example, only approximately one third (about 4600) of participants answered the question on satisfaction with Welsh transport, whereas over 11,000 participants answered questions on access to GPs and 6,500 answered on hospitals. Because of these differences, we still assert that participants have overall negative experiences at more advanced ages. </br>
+  Interestingly, we do not have any information on access to a car for participants of different ages. This would have given us some further insight into some of these results and perhaps lent some more credibility to the results on feeling safe in public transport. </br>
+
+<u>Participants with a Long-term limiting illness</u></br>
+
+  Our next area of investigation was participants with a reported long-term limiting illness. This is another area where we can find a lot of further information throughout the dataset. One particular area of interest here was the access to a GP and hospital as we assumed this is something these participants would do often. </br>
+ 
+ There is a small difference in satisfaction between those with and without long-term illnesses - those with rated it at 5.7, and those without rated it at 5.9. However, we can see a significant difference in how these two groups experience the transport system. </br>
+
+  There is a difference of about 13 percentage points (or 17%) between those who can access a car with a long-term illness and those who can access one with no illness. This is a significantly larger difference than the one between male and female participants (fig. 10, 11) </br>
+
+ More participants without a long-term illness describe accessing a GP or a hospital as “Very easy”, whilst the opposite is true for “Fairly difficult” and “Very difficult”. Whilst it is still positive to see approximately 75% or more describing this access as easy, it still leaves 1 in 4 participants with long-term illnesses with difficulty accessing these services. </br>
+
+<u>Conclusions</u></br>
+ 
+ Our aim with this data analysis exercise was to identify areas for improvement or investment for Transport for Wales to act on. Throughout this exercise, we have looked into some fundamental areas - gender, age and long-term illness - and how these groups experience transport in Wales and how this might affect their satisfaction ratings. We also looked into WIMD scores for deprivation and access to services, however some of the data trends were not strong enough to warrant further investigation. Our findings identified the following two areas for improvement. </br>
+
+ First, is to research and provide services for users travelling on public transport at night. For some demographics - such as females and those over the age of 65 - we see a significant dip in participants feeling “Very safe” or “Fairly safe”. This is especially true for the data on female participants, who show 20 percentage points less than males for feeling safe on public transport at night. When looking at female participants, they also are less likely to have access to a car which could affect these findings. Unfortunately, we do not have any data on access to a car by age which would have also bolstered these findings. </br>
+   
+ Our next possible area for improvement is transport for GPs and hospitals. We can see that factors such as age or long-term illness affects the ease of getting to these facilities. Whilst the findings are fairly positive (with a large percentage saying they find getting to these appointments “Very/Fairly easy”) when we look at GP access for those with long-term illness, we can see that approximately 1 in 4 (25%) do have difficulty getting to these facilities. If we then pair this data with the smaller percentage of those with long-term illnesses having access to a car - and therefore fewer options for travel - there is definitely some room for improvement. </br>
+
+  If we were to develop this analysis further, it would be interesting to find out how some of the different demographics intersect. For example, what is the gender split for those with long-term illnesses and how does access to a car change with age. Overall, research yielded some interesting results and did give some direction in where improvements could be made, however we also think that further research into populations and demographics - such as mentioned previously - would strengthen and broaden this analysis. </br>
+
+<u>References:</u></br>
+
+Statistic for Wales (2008). Domestic Address Points in Wales. [Online]. gov.wales. Available at https://www.gov.wales/sites/default/files/statistics-and-research/2018-12/080515-statistical-focus-rural-wales-08-en.pdf. [Accessed 25 September 2023]. </br>
+Traffic Wales. (2022). Our Roads. [Online]. traffic.wales. Available at https://traffic.wales/our-roads. [Accessed 9 October 2023]. </br>
+Transport for Wales. (2023). From rail to trail. [Online]. tfw.wales. Available at: https://tfw.wales/ways-to-travel/walking-and-wheeling/walking-and-wheeling-routes [Accessed 25 September 2023]. </br>
+Transport for Wales. (2023). Our Network. [Online]. tfw.wales. Available at https://tfw.wales/places/our-network-map. [Accessed 9 October 2023] </br>
+Traws Cymru (2023). Bus Network Map. [Online]. traws.cyrmu. Available at https://traws.cymru/en/services. [Accessed 9 October 2023]. </br>
+Welsh Government. (2013). National Survey for Wales 2013/14 Questionnaire. [Online]. gov.wales. Available at: https://www.gov.wales/sites/default/files/statistics-and-research/2019-02/national-survey-wales-ques [Accessed 25 September 2023]. </br>
+<u>Further Bibliography:</u></br>
+Geeks for Geeks. (2021). Plot a pie chart in Python using Matplotlib. [Online]. geeksforgeeks.org. Available at: https://www.geeksforgeeks.org/plot-a-pie-chart-in-python-using-matplotlib/ [Accessed 30 October 2023]. </br>
+Hunter, J. et al. (2013). Using Matplotlib. [Online]. matplotlib.org. Last Updated: 13 September 2023. Available at: https://matplotlib.org/stable/users/index [Accessed 30 October 2023]. </br>
+NumFOCUS. (2023). User Guide. [Online]. pandas.pydata.org. Available at: https://pandas.pydata.org/docs/user_guide/index.html [Accessed 30 October 2023]. </br>
+Willems, K. (2021). Matplotlib Cheat Sheet: Plotting in Python. [Online]. datacamp.com. Available at: https://www.datacamp.com/cheat-sheet/matplotlib-cheat-sheet-plotting-in-python [Accessed 30 October 2023]. </br>
+Willems, K. (2021). Pandas Cheat Sheet for Data Science in Python. [Online]. datacamp.com. Available at: https://www.datacamp.com/cheat-sheet/pandas-cheat-sheet-for-data-science-in-python [Accessed 30 October 2023]. </br>
+
+</p>
+		                              					
+			 <div class="col-4"><span class="image fit"><img src="images/all_charts1.jpg" alt="" /></span></div>	
+       <div class="col-4"><span class="image fit"><img src="images/all_charts2.jpg" alt="" /></span></div>		
+       <div class="col-4"><span class="image fit"><img src="images/all_charts3.jpg" alt="" /></span></div>		
+						
+						
+						</div>
+					</div>
+
+				
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
